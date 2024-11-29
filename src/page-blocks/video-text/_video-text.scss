@@ -1,0 +1,12 @@
+/*------------------------------------*\
+    VIDEO
+\*------------------------------------*/
+
+.ds_pb--video-text {
+    @extend %ds_pb--image-video;
+}
+
+// Support old naming convention
+.ds_pb--video {
+    @extend %ds_pb--image-video;
+}
