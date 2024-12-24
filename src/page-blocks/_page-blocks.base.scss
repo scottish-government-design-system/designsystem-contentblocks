@@ -2,7 +2,33 @@
     position: relative;
 }
 
-// colors
+// Colors
+
+// Themes
+$pb_theme__blue: $ds_colour__blue;
+$pb_theme__purple: #741e6d; // Proposed new $ds_colour__purple
+$pb_theme__green: #2e5d2e; // Proposed new $ds_colour__green
+$pb_theme__teal: #1c5d5d; // Proposed new $ds_colour__teal
+$pb_theme__darkblue: $ds_colour__blue--darker;
+$pb_theme__neutral: #333e48; // New grey
+// Secondary background 90% tints
+$pb_theme__blue-secondary: #e5f0f8;
+$pb_theme__purple-secondary: #f1e8f0;
+$pb_theme__green-secondary: #eaefea;
+$pb_theme__teal-secondary: #e6efef;
+$pb_theme__darkblue-secondary: #e5eaee;
+$pb_theme__neutral-secondary: #ebeced;
+
+$pb_themes: (
+    'blue'        $pb_theme__blue     'reversed'    $pb_theme__blue-secondary     'normal',
+    'purple'      $pb_theme__purple   'reversed'    $pb_theme__purple-secondary   'normal',
+    'green'       $pb_theme__green    'reversed'    $pb_theme__green-secondary    'normal',
+    'teal'        $pb_theme__teal     'reversed'    $pb_theme__teal-secondary     'normal',
+    'darkblue'    $pb_theme__darkblue 'reversed'    $pb_theme__darkblue-secondary 'normal',
+    'neutral'     $pb_theme__neutral  'reversed'    $pb_theme__neutral-secondary  'normal'
+);
+
+// old colours
 
 $pb_colors: (
     'white'     $ds_colour__white       'normal',
@@ -21,6 +47,8 @@ $pb_colors: (
     'black'     $ds_colour__black       'black'
 );
 
+
+// Old themes
 %texttheme-reversed {
     color: $ds_colour__white;
 
@@ -114,6 +142,7 @@ $pb_colors: (
         }
     }
 
+    // Old colour combo support
     @each $color in $pb_colors {
         $name: nth($color, 1);
         $hex: nth($color, 2);
@@ -146,12 +175,6 @@ $pb_colors: (
             h6 {
                 color: #{$hex};
             }
-            // Coloured icon in Page header aside page block
-            &.ds_pb--page-title__aside {
-                .ds_icon {
-                    fill: #{$hex};
-                }
-            }
         }
 
         // Option to replace default links with neutral colour if transparent, white or light grey background
@@ -160,6 +183,52 @@ $pb_colors: (
         &--neutral-links.ds_pb--bg-grey {
             a:not(:hover):not(:focus):not(.ds_button) {
                 color: $ds_colour__text;
+            }
+        }
+    }
+}
+
+// Themes - applied once and cascades to page blocks
+@each $theme in $pb_themes {
+    $name: nth($theme, 1);
+    $hex: nth($theme, 2);
+    $texttheme: nth($theme, 3);
+    $secondaryHex: nth($theme, 4);
+    $secondaryTexttheme: nth($theme, 5);
+
+    .ds_pb-theme--#{$name} {
+
+        .ds_pb__theme--background {
+            background-color: #{$hex};
+
+            @if ($texttheme == 'reversed') {
+                @extend %texttheme-reversed;
+            }
+        }
+
+        .ds_pb__theme--background-secondary {
+            background-color: #{$secondaryHex};
+
+            @if ($secondaryTexttheme == 'normal') {
+                color: $ds_colour__text;
+                a:not(:hover):not(:focus):not(.ds_button) {
+                    color: $hex;
+                    text-decoration: underline;
+                }
+
+                // Button theming
+                .ds_button:not(:hover):not(:focus) {
+                    background-color: transparent;
+                    color: $hex;
+                    outline: 2px solid $hex;
+                    outline-offset: -2px;
+                }
+                .ds_button:hover:not(:focus) {
+                    background-color: rgba($ds_colour__white, 20%);
+                    color: $hex;
+                    outline: 2px solid $hex;
+                    outline-offset: -2px;
+                }
             }
         }
     }
