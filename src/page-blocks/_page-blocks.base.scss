@@ -1,134 +1,5 @@
-.ds_pb__inner {
-    position: relative;
-}
-
-// Colors
-
-// Themes
-$pb_theme__blue: $ds_colour__blue;
-$pb_theme__purple: #741e6d; // Proposed new $ds_colour__purple
-$pb_theme__green: #2e5d2e; // Proposed new $ds_colour__green
-$pb_theme__teal: #1c5d5d; // Proposed new $ds_colour__teal
-$pb_theme__darkblue: $ds_colour__blue--darker;
-$pb_theme__neutral: #333e48; // New grey
-// Secondary background 90% tints
-$pb_theme__blue-secondary: #e5f0f8;
-$pb_theme__purple-secondary: #f1e8f0;
-$pb_theme__green-secondary: #eaefea;
-$pb_theme__teal-secondary: #e6efef;
-$pb_theme__darkblue-secondary: #e5eaee;
-$pb_theme__neutral-secondary: #ebeced;
-
-$pb_themes: (
-    'blue'        $pb_theme__blue     'reversed'    $pb_theme__blue-secondary     'normal',
-    'purple'      $pb_theme__purple   'reversed'    $pb_theme__purple-secondary   'normal',
-    'green'       $pb_theme__green    'reversed'    $pb_theme__green-secondary    'normal',
-    'teal'        $pb_theme__teal     'reversed'    $pb_theme__teal-secondary     'normal',
-    'darkblue'    $pb_theme__darkblue 'reversed'    $pb_theme__darkblue-secondary 'normal',
-    'neutral'     $pb_theme__neutral  'reversed'    $pb_theme__neutral-secondary  'normal'
-);
-
-// old colours
-
-$pb_colors: (
-    'white'     $ds_colour__white       'normal',
-    'grey'      $ds_colour__grey--light 'normal',
-    'blue'      $ds_colour__blue        'reversed',
-    'darkblue'  $ds_colour__blue--darker 'reversed',
-    'teal'      $ds_colour__teal        'dark',
-    'darkteal'  $ds_colour__dark-teal   'reversed',
-    'green'     $ds_colour__green       'dark',
-    'darkgreen' $ds_colour__dark-green  'reversed',
-    'orange'    $ds_colour__orange      'dark',
-    'red'       $ds_colour__red         'reversed',
-    'pink'      $ds_colour__pink        'reversed',
-    'purple'    $ds_colour__purple      'reversed',
-    'brown'     $ds_colour__brown       'reversed',
-    'black'     $ds_colour__black       'black'
-);
-
-
-// Old themes
-%texttheme-reversed {
-    color: $ds_colour__white;
-
-    hr {
-        border-color: $ds_colour__white;
-    }
-
-    a:not(:hover):not(:focus):not(.ds_button) {
-        color: currentColor;
-        text-decoration: underline;
-    }
-
-    // Button theming
-    .ds_button:not(:hover):not(:focus) {
-        background-color: transparent;
-        color: currentColor;
-        outline: 2px solid currentColor;
-        outline-offset: -2px;
-    }
-    .ds_button:hover:not(:focus) {
-        background-color: rgba($ds_colour__black, 20%);
-        color: currentColor;
-        outline: 2px solid currentColor;
-        outline-offset: -2px;
-    }
-}
-
-%texttheme-dark {
-    color: $ds_colour__black;
-
-    hr {
-        border-color: $ds_colour__black;
-    }
-
-    a:not(:hover):not(:focus):not(.ds_button) {
-        color: currentColor;
-        text-decoration: underline;
-    }
-
-    // Button theming
-    .ds_button:not(:hover):not(:focus) {
-        background-color: transparent;
-        color: currentColor;
-        outline: 2px solid currentColor;
-        outline-offset: -2px;
-    }
-    .ds_button:hover:not(:focus) {
-        background-color: rgba($ds_colour__white, 20%);
-        color: currentColor;
-        outline: 2px solid currentColor;
-        outline-offset: -2px;
-    }
-}
-
-%texttheme-black {
-    color: $ds_colour__white;
-
-    hr {
-        border-color: $ds_colour__white;
-    }
-
-    a:not(:hover):not(:focus):not(.ds_button) {
-        color: currentColor;
-        text-decoration: underline;
-    }
-
-    // Button theming
-    .ds_button:not(:hover):not(:focus) {
-        background-color: transparent;
-        color: currentColor;
-        outline: 2px solid currentColor;
-        outline-offset: -2px;
-    }
-    .ds_button:hover:not(:focus) {
-        background-color: rgba($ds_colour__white, 20%);
-        color: currentColor;
-        outline: 2px solid currentColor;
-        outline-offset: -2px;
-    }
-}
+// Default theme secondary background to standard secondary background - will be overwritten by theme Sass
+$pb_theme__background-secondary: $ds_colour__background--secondary !default;
 
 .ds_pb {
 
@@ -142,96 +13,17 @@ $pb_colors: (
         }
     }
 
-    // Old colour combo support
-    @each $color in $pb_colors {
-        $name: nth($color, 1);
-        $hex: nth($color, 2);
-        $texttheme: nth($color, 3);
-
-        &--bg-#{$name} {
-            background-color: #{$hex};
-
-            @if ($texttheme == 'reversed') {
-                @extend %texttheme-reversed;
-            }
-
-            @if ($texttheme == 'dark') {
-                @extend %texttheme-dark;
-            }
-
-            @if ($texttheme == 'black') {
-                @extend %texttheme-black;
-            }
-        }
-
-        // foreground theming
-        &--fg-#{$name}:not([class*="ds_pb--bg-"]),
-        &--fg-#{$name}.ds_pb--bg-white {
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-                color: #{$hex};
-            }
-        }
-
-        // Option to replace default links with neutral colour if transparent, white or light grey background
-        &--neutral-links:not([class*="ds_pb--bg-"]),
-        &--neutral-links.ds_pb--bg-white,
-        &--neutral-links.ds_pb--bg-grey {
-            a:not(:hover):not(:focus):not(.ds_button) {
-                color: $ds_colour__text;
-            }
-        }
+    // Secondary and Tertiary background options
+    &--background-secondary {
+        background-color: $ds_colour__background--secondary;
     }
-}
-
-// Themes - applied once and cascades to page blocks
-@each $theme in $pb_themes {
-    $name: nth($theme, 1);
-    $hex: nth($theme, 2);
-    $texttheme: nth($theme, 3);
-    $secondaryHex: nth($theme, 4);
-    $secondaryTexttheme: nth($theme, 5);
-
-    .ds_pb-theme--#{$name} {
-
-        .ds_pb__theme--background {
-            background-color: #{$hex};
-
-            @if ($texttheme == 'reversed') {
-                @extend %texttheme-reversed;
-            }
-        }
-
-        .ds_pb__theme--background-secondary {
-            background-color: #{$secondaryHex};
-
-            @if ($secondaryTexttheme == 'normal') {
-                color: $ds_colour__text;
-                a:not(:hover):not(:focus):not(.ds_button) {
-                    color: $hex;
-                    text-decoration: underline;
-                }
-
-                // Button theming
-                .ds_button:not(:hover):not(:focus) {
-                    background-color: transparent;
-                    color: $hex;
-                    outline: 2px solid $hex;
-                    outline-offset: -2px;
-                }
-                .ds_button:hover:not(:focus) {
-                    background-color: rgba($ds_colour__white, 20%);
-                    color: $hex;
-                    outline: 2px solid $hex;
-                    outline-offset: -2px;
-                }
-            }
-        }
+    &--background-tertiary {
+        background-color: $ds_colour__background--tertiary;
     }
+    &__theme--background-secondary {
+        background-color: $pb_theme__background-secondary;
+    }
+
 }
 
 // subcomponents
@@ -243,6 +35,7 @@ $pb_colors: (
 
 .ds_pb__inner {
     @include ds_layout();
+    position: relative;
 
     > * + * {
         @include ds_responsive-margin(4, top);

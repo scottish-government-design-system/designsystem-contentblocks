@@ -17,14 +17,8 @@
         @include ds_responsive-margin(3, top);
     }
 
-    // Background theming style changes
-    &[class*="ds_pb--bg-"] {
-        .ds_link-item {
-            border-bottom: 1px currentColor solid;
-        }
-
-        .ds_metadata {
-            color: currentColor;
-        }
+    // Darker background to support background theming - may be updated in future DS version
+    .ds_link-item {
+        border-bottom: 1px $ds_colour__border solid;
     }
 }

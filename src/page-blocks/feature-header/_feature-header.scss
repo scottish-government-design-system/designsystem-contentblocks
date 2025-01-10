@@ -4,6 +4,9 @@
 \*------------------------------------*/
 .ds_pb--ds_feature-header {
 
+    // Remove bottom margin from component
+    margin-bottom: 0;
+
         // Mobile alignment - left by default
         @include ds_media-query (medium-down) {
             .ds_feature-header__secondary--hidden-mobile {
@@ -96,145 +99,5 @@
                 }
             }
         }
-
-}
-
-// OLD BLOCK STYLE RULES
-.ds_pb--page-title {
-    .ds_pb__inner {
-
-        @include ds_layout();
-
-        .ds_pb__text {
-            @include ds_responsive-margin(5, top);
-
-            &:first-child:last-child {
-                @include ds_responsive-margin(6, bottom);
-            }
-
-            @include ds_media-query (medium) {
-                @include ds_responsive-margin(6, top);
-                @include ds_responsive-margin(6, bottom);
-            }
-
-            // Alignment options
-            &--middle {
-                align-self: center;
-            }
-        }
-
-        .ds_page-header {
-            margin-top: 0;
-            @include ds_responsive-margin(2, bottom);
-
-            &:first-child:last-child {
-                margin-bottom: 0;
-            }
-
-            &__title {
-                &--light {
-                    font-weight: $light;
-                }
-            }
-        }
-
-        .ds_pb__poster {
-
-            @include ds_responsive-margin(4, bottom);
-
-            // Alignment options
-            &--middle {
-                align-self: center;
-            }
-
-            @include ds_media-query (medium) {
-
-                @include ds_responsive-margin(6, top);
-                @include ds_responsive-margin(6, bottom);
-
-                &--no-margin {
-                    margin: 0;
-                }
-
-                // Ignore cover option on IE11
-                @supports (object-fit: cover) {
-                    &--cover {
-                        overflow: hidden;
-                        padding: 0;
-                        position: relative;
-
-                        img {
-                            height: 100%;
-                            left: 0;
-                            width: 100%;
-                            object-fit: cover;
-                            position: absolute;
-                            right: 0;
-                        }
-                    }
-                }
-            }
-
-            // Mobile alignment - left by default
-            @include ds_media-query (medium-down) {
-                &--hidden-mobile {
-                    margin: 0;
-                    display: none;
-                }
-                &--middle-mobile {
-                    img {
-                        margin: 0 auto;
-                    }
-                }
-                &--right-mobile {
-                    img {
-                        margin-left: auto;
-                    }
-                }
-            }
-        }
-
-        // Button overrides
-        .ds_button {
-            @include ds_responsive-margin(1, top);
-        }
-    }
-
-    // Wide text option
-    &--wide {
-
-        .ds_pb__text {
-
-            @include ds_media-query(medium) {
-                float: left;
-                @include ds_colwidth(8);
-
-                &:last-of-type:first-of-type {
-                    float: none;
-                }
-
-                @supports(display: grid) {
-                    grid-column: span 8;
-
-                    &:last-of-type:first-of-type {
-                        grid-area: 1/1/1/9;
-                        width: auto;
-                    }
-                }
-            }
-        }
-
-        .ds_pb__poster {
-
-            @include ds_media-query(medium) {
-                float: left;
-                @include ds_colwidth(4);
-
-                @supports(display: grid) {
-                    grid-column: span 4;
-                }
-            }
-        }
-    }
 
 }
